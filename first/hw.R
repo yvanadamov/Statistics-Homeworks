@@ -1,7 +1,7 @@
 # Прочетете данните и ги запишете в data frame в R;
 filename = "pokemon.csv"
 
-pokemonData = read.csv(filename, header = TRUE)
+pokemonData = read.csv(filename, header=TRUE)
 
 # Генерирайте си подизвадка от 600 наблюдения. 
 # За целта нека f_nr е вашият факултетен номер. 
@@ -80,17 +80,15 @@ print(nrow(tallFlying))
 type2 = subset(subsample, !subsample$Type2  == "", select = c("Weight"))
 
 vtype2 = (unlist(type2))
+print(summary(vtype2))
 
 hist(vtype2, 
 	main="Histogram of Pokemon weight of pokemons with secondary type",
 	xlab="Weight",
 	probability=TRUE)
-
 lines(density(vtype2))
 
-print(summary(vtype2))
-
-boxplot(vtype2, notch=TRUE, varwidth=TRUE)
+boxplot(vtype2)
 
 # За покемоните с първичен тип "Normal"или "Fighting"изследвайте
 # съвместно променливите Type1 и Height с подходящ графичен метод.
@@ -107,31 +105,18 @@ print(type1)
 
  # If the notches of two plots do not overlap this is 
  # ‘strong evidence’ that the two medians differ
-boxplot(type1$Height ~ type1$Type1, notch=TRUE)
+box = boxplot(type1$Height ~ type1$Type1, notch=TRUE)
+print("Outliers: ")
+print(box$out)
 
-aggregate(type1$Height ~ type1$Type1, data=type1, FUN="fivenum")
-aggregate(type1$Height ~ type1$Type1, data=type1, FUN="summary")
-# г/д еднакво разпределение, oulieri–ите са при Normal
+aggregate(type1$Height ~ type1$Type1, data=type1, FUN="mean")
+aggregate(type1$Height ~ type1$Type1, data=type1, FUN="median")
+# г/д Fighting са по-високи
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Изследвайте съвместно променливите Height и Weight с подходящ
+# графичен метод. Бихте ли казали, че съществува линейна връзка меж-
+# ду тях? Намерете корелацията между величините и коментирайте
+# стойността ѝ. Начертайте регресионна права (линейната функция, ко-
+# ято най-добре приближава функционалната зависимост). Ако е наб-
+# людаван нов вид покемон с височина 2.1 метра, какво се очаква да е
+# теглото му на базата на линейния модел?
